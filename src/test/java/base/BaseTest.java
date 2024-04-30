@@ -85,7 +85,10 @@ public class BaseTest {
 	public void afterMethod(ITestResult testresult) {
 		int result = testresult.getStatus();
 		if( result == ITestResult.FAILURE) {
-			extentlog.log(Status.FAIL, MarkupHelper.createLabel(testresult.getName() + " : " +  Status.FAIL, ExtentColor.RED));
+			extentlog.log(Status.FAIL, MarkupHelper.createLabel(testresult.getThrowable(), ExtentColor.RED));
+			//extentlog.log(Status.FAIL, );
+			String filename =  System.getProperty("user.dir") + File.separator + "screenshots" + File.separator + testresult.getMethod().getMethodName();
+			extentlog.addScreenCaptureFromPath("file:///" + filename + ".png");
 		}
 		else if( result == ITestResult.SKIP) {
 			extentlog.log(Status.SKIP, MarkupHelper.createLabel(testresult.getName() + " : " +  Status.SKIP, ExtentColor.ORANGE));

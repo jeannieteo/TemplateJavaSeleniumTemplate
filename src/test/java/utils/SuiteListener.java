@@ -19,10 +19,13 @@ public class SuiteListener implements ITestListener, IAnnotationTransformer{
 	
 	public void onTestFailure(ITestResult result) {
 		//on Fail takes screenshot
+		
 		String filename =  System.getProperty("user.dir") + File.separator + "screenshots" + File.separator + result.getMethod().getMethodName();
 		File file = ((TakesScreenshot)BaseTest.driver).getScreenshotAs(OutputType.FILE);
+		System.out.println("inlistener " + filename);
 		try {
 			FileUtils.copyFile(file, new File(filename + ".png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
